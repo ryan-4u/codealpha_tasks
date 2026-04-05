@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevCircle — Feed</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand">Dev<span>Circle</span></div>
+  <ul class="navbar-nav">
+    <li>
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Search users..."
+        style="width: 200px; padding: 0.4rem 0.8rem; font-size: 0.85rem;"
+      />
+    </li>
+    <li><a href="/feed.html">Feed</a></li>
+    <li><a href="#" id="profileLink">Profile</a></li>
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+    <li>
+      <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
+        onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+    </li>
+  </ul>
+</nav>
+
+<!-- Search Results Dropdown -->
+<div id="searchResults" style="
+  display: none;
+  position: fixed;
+  top: 65px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 250px;
+  z-index: 200;
+  padding: 0.5rem;
+"></div>
+
+<!-- Main Layout -->
+<div class="container">
+  <div class="layout">
+
+    <!-- Feed -->
+    <main>
+
+      <!-- Create Post -->
+      <div class="create-post">
+        <div class="create-post-header">
+          <img src="" alt="avatar" class="post-avatar" id="createAvatar"
+            onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+          <textarea
+            id="postContent"
+            class="form-control"
+            placeholder="What's on your mind, dev?"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="create-post-footer">
+          <label class="file-label" for="postImage">
+            📎 Attach Image
+          </label>
+          <input type="file" id="postImage" class="file-input" accept="image/*" />
+          <span id="fileName" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+          <button class="btn btn-primary btn-sm" id="submitPost">Post</button>
+        </div>
+      </div>
+
+      <!-- Posts Feed -->
+      <div id="feedContainer">
+        <div class="loader"><div class="spinner"></div></div>
+      </div>
+
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Logged in user info -->
+      <div class="sidebar-card">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <img src="" alt="avatar" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border: 2px solid var(--accent);"
+            id="sidebarAvatar"
+            onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+          <div>
+            <div id="sidebarName" style="font-weight: 600; font-size: 0.95rem;"></div>
+            <div id="sidebarUsername" style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tips -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">// DevCircle</div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+          Share your builds, learnings, and dev journey. Connect with developers who get it.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/feed.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevCircle — Post</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand">Dev<span>Circle</span></div>
+  <ul class="navbar-nav">
+    <li><a href="/feed.html">← Back to Feed</a></li>
+    <li><a href="#" id="profileLink">Profile</a></li>
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+    <li>
+      <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
+        onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+    </li>
+  </ul>
+</nav>
+
+<div class="container" style="padding-top: 2rem; max-width: 700px;">
+
+  <!-- Post Detail -->
+  <div id="postDetail">
+    <div class="loader"><div class="spinner"></div></div>
+  </div>
+
+  <!-- Comments Section -->
+  <div id="commentsSection" style="display:none;">
+    <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-family: var(--font-mono); margin: 1.5rem 0 1rem;">
+      // Comments
+    </h3>
+
+    <!-- Add Comment -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; gap: 0.75rem;">
+        <img src="" alt="avatar" class="post-avatar" id="commentAvatar"
+          onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+        <div style="flex: 1;">
+          <textarea
+            id="commentInput"
+            class="form-control"
+            placeholder="Write a comment..."
+            rows="2"
+          ></textarea>
+          <button class="btn btn-primary btn-sm" id="submitComment" style="margin-top: 0.6rem;">
+            Comment
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments List -->
+    <div id="commentsList"></div>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/post.js"></script>
+</body>
+</html>

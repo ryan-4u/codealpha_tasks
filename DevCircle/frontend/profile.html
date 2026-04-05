@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DevCircle — Profile</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand">Dev<span>Circle</span></div>
+  <ul class="navbar-nav">
+    <li><a href="/feed.html">Feed</a></li>
+    <li><a href="#" id="profileLink">Profile</a></li>
+    <li><a href="#" id="logoutBtn">Logout</a></li>
+    <li>
+      <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
+        onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
+    </li>
+  </ul>
+</nav>
+
+<div class="container" style="padding-top: 2rem;">
+
+  <!-- Profile Header -->
+  <div class="profile-header" id="profileHeader">
+    <div class="loader"><div class="spinner"></div></div>
+  </div>
+
+  <!-- Edit Profile Form (own profile only) -->
+  <div id="editProfileSection" style="display:none;" class="card" style="margin-bottom: 1.5rem;">
+    <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-secondary);">Edit Profile</h3>
+    <div id="editError" class="alert alert-error" style="display:none;"></div>
+    <div id="editSuccess" class="alert alert-success" style="display:none;"></div>
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="editName" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea id="editBio" class="form-control" rows="3" placeholder="Tell the world about yourself..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Avatar</label>
+      <input type="file" id="editAvatar" class="form-control" accept="image/*" />
+    </div>
+    <button class="btn btn-primary" id="saveProfile">Save Changes</button>
+    <button class="btn btn-outline" id="cancelEdit" style="margin-left: 0.5rem;">Cancel</button>
+  </div>
+
+  <!-- User Posts -->
+  <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 1rem;">
+    // Posts
+  </h3>
+  <div id="profilePosts">
+    <div class="loader"><div class="spinner"></div></div>
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>
