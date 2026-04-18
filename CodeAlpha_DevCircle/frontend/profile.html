@@ -12,8 +12,12 @@
 <nav class="navbar">
   <div class="navbar-brand">Dev<span>Circle</span></div>
   <ul class="navbar-nav">
-    <li><a href="/feed.html">Feed</a></li>
+    <li><a href="feed.html">Feed</a></li>
     <li><a href="#" id="profileLink">Profile</a></li>
+    <li class="bell-wrap">
+      <a href="#" id="bellBtn" style="font-size: 1.1rem;">🔔</a>
+      <span class="notif-badge" id="notifBadge"></span>
+    </li>
     <li><a href="#" id="logoutBtn">Logout</a></li>
     <li>
       <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
@@ -29,8 +33,8 @@
     <div class="loader"><div class="spinner"></div></div>
   </div>
 
-  <!-- Edit Profile Form (own profile only) -->
-  <div id="editProfileSection" style="display:none;" class="card" style="margin-bottom: 1.5rem;">
+  <!-- Edit Profile Form -->
+  <div id="editProfileSection" style="display:none; margin-bottom: 1.5rem;" class="card">
     <h3 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-secondary);">Edit Profile</h3>
     <div id="editError" class="alert alert-error" style="display:none;"></div>
     <div id="editSuccess" class="alert alert-success" style="display:none;"></div>
@@ -39,8 +43,8 @@
       <input type="text" id="editName" class="form-control" />
     </div>
     <div class="form-group">
-      <label>Bio</label>
-      <textarea id="editBio" class="form-control" rows="3" placeholder="Tell the world about yourself..."></textarea>
+      <label>Bio <span id="bioCharCount" style="color: var(--text-muted); font-size: 0.8rem;">(0/300)</span></label>
+      <textarea id="editBio" class="form-control" rows="4" maxlength="300" placeholder="Tell the world about yourself..."></textarea>
     </div>
     <div class="form-group">
       <label>Avatar</label>
@@ -50,17 +54,54 @@
     <button class="btn btn-outline" id="cancelEdit" style="margin-left: 0.5rem;">Cancel</button>
   </div>
 
-  <!-- User Posts -->
-  <h3 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 1rem;">
-    // Posts
-  </h3>
-  <div id="profilePosts">
-    <div class="loader"><div class="spinner"></div></div>
+  <!-- Two column layout -->
+  <div class="layout">
+
+    <!-- Posts -->
+    <main>
+      <div class="section-heading">
+        <h3>Posts</h3>
+        <span id="postCount"></span>
+      </div>
+      <div id="profilePosts">
+        <div class="loader"><div class="spinner"></div></div>
+      </div>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" style="position: sticky; top: 70px; height: fit-content;">
+      <div class="section-heading" style="padding: 0 0.25rem;">
+        <h3>Links</h3>
+      </div>
+      <div class="sidebar-card">
+        <div id="addLinkForm" style="display:none; margin-bottom: 1rem;">
+          <div class="form-group">
+            <input type="text" id="linkName" class="form-control" placeholder="Label (e.g. GitHub)" />
+          </div>
+          <div class="form-group">
+            <input type="url" id="linkUrl" class="form-control" placeholder="https://..." />
+          </div>
+          <button class="btn btn-primary btn-sm" id="submitLink">Add Link</button>
+        </div>
+        <div id="linksList"></div>
+        <button id="toggleAddLink" class="btn btn-outline btn-sm" style="display:none; margin-top: 0.75rem; width: 100%;">
+          + Add Link
+        </button>
+      </div>
+    </aside>    
+
   </div>
-
 </div>
-
+<!-- Notification Popup -->
+<div class="notif-popup" id="notifPopup">
+  <div class="notif-popup-header">
+    <span>Notifications</span>
+    <button id="markReadBtn">Mark all read</button>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+</div>
 <script src="js/api.js"></script>
 <script src="js/profile.js"></script>
+<script src="js/notifications.js"></script>
 </body>
 </html>

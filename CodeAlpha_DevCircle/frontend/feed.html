@@ -21,8 +21,12 @@
         style="width: 200px; padding: 0.4rem 0.8rem; font-size: 0.85rem;"
       />
     </li>
-    <li><a href="/feed.html">Feed</a></li>
+    <li><a href="feed.html">Feed</a></li>
     <li><a href="#" id="profileLink">Profile</a></li>
+    <li class="bell-wrap">
+      <a href="#" id="bellBtn" style="font-size: 1.1rem;">🔔</a>
+      <span class="notif-badge" id="notifBadge"></span>
+    </li>
     <li><a href="#" id="logoutBtn">Logout</a></li>
     <li>
       <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
@@ -50,7 +54,6 @@
 
     <!-- Feed -->
     <main>
-
       <!-- Create Post -->
       <div class="create-post">
         <div class="create-post-header">
@@ -77,37 +80,43 @@
       <div id="feedContainer">
         <div class="loader"><div class="spinner"></div></div>
       </div>
-
     </main>
 
     <!-- Sidebar -->
-    <aside class="sidebar">
-      <!-- Logged in user info -->
-      <div class="sidebar-card">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-          <img src="" alt="avatar" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border: 2px solid var(--accent);"
-            id="sidebarAvatar"
-            onerror="this.src='https://ui-avatars.com/api/?background=58a6ff&color=0d1117&name=U'" />
-          <div>
-            <div id="sidebarName" style="font-weight: 600; font-size: 0.95rem;"></div>
-            <div id="sidebarUsername" style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);"></div>
-          </div>
+    <aside class="sidebar" style="position: sticky; top: 70px; height: fit-content;">
+
+      <!-- My Links -->
+      <div class="sidebar-card" style="margin-bottom: 1rem;">
+        <div class="sidebar-title">// My Links</div>
+        <div id="sidebarLinks">
+          <div class="loader"><div class="spinner"></div></div>
         </div>
       </div>
 
-      <!-- Tips -->
+      <!-- Who to Follow -->
       <div class="sidebar-card">
-        <div class="sidebar-title">// DevCircle</div>
-        <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-          Share your builds, learnings, and dev journey. Connect with developers who get it.
-        </p>
+        <div class="sidebar-title">// Who to Follow</div>
+        <div id="suggestions">
+          <div class="loader"><div class="spinner"></div></div>
+        </div>
       </div>
+
     </aside>
 
   </div>
 </div>
 
+<!-- Notification Popup -->
+<div class="notif-popup" id="notifPopup">
+  <div class="notif-popup-header">
+    <span>Notifications</span>
+    <button id="markReadBtn">Mark all read</button>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+</div>
+
 <script src="js/api.js"></script>
 <script src="js/feed.js"></script>
+<script src="js/notifications.js"></script>
 </body>
 </html>

@@ -128,3 +128,44 @@ const searchUsers = (q) =>
   fetch(`${API_URL}/users/search/users?q=${q}`, {
     headers: { Authorization: `Bearer ${getToken()}` }
   }).then(res => res.json());
+
+// Links
+const addLink = (name, url) =>
+  fetch(`${API_URL}/users/links/add`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, url })
+  }).then(res => res.json());
+
+const deleteLink = (linkId) =>
+  fetch(`${API_URL}/users/links/${linkId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(res => res.json());
+
+// Get all users (for suggestions)
+const getSuggestions = () =>
+  fetch(`${API_URL}/users/search/users?q=`, {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(res => res.json());
+
+// Notifications
+const getNotifications = () =>
+  fetch(`${API_URL}/notifications`, {
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(res => res.json());
+
+const markNotificationsRead = () =>
+  fetch(`${API_URL}/notifications/read`, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(res => res.json());
+
+const deleteNotification = (id) =>
+  fetch(`${API_URL}/notifications/${id}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${getToken()}` }
+  }).then(res => res.json());

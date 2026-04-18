@@ -4,6 +4,7 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const auth = require('../middleware/auth');
 const { upload } = require('../config/cloudinary');
+const Notification = require('../models/Notification');
 
 // Get user profile by username
 router.get('/:username', auth, async (req, res) => {
@@ -34,7 +35,10 @@ router.put('/update/profile', auth, upload.single('avatar'), async (req, res) =>
     const { bio, name } = req.body;
 
     const updateData = {};
-    if (bio !== undefined) updateData.bio = bio;
+    if (bio !== undefined) {
+      const cleanBio = bio.split('\n').slice(0, 5).join('\n').substring(0, 300);
+      updateData.bio = cleanBio;
+    }
     if (name !== undefined) updateData.name = name;
     if (req.file) updateData.avatar = req.file.path;
 
@@ -68,21 +72,31 @@ router.put('/follow/:id', auth, async (req, res) => {
     const isFollowing = userToFollow.followers.includes(req.user.id);
 
     if (isFollowing) {
-      // Unfollow
       await User.findByIdAndUpdate(req.params.id, {
         $pull: { followers: req.user.id }
       });
       await User.findByIdAndUpdate(req.user.id, {
         $pull: { following: req.params.id }
       });
+      // Remove follow notification
+      await Notification.findOneAndDelete({
+        recipient: req.params.id,
+        sender: req.user.id,
+        type: 'follow'
+      });
       res.json({ message: 'Unfollowed successfully' });
     } else {
-      // Follow
       await User.findByIdAndUpdate(req.params.id, {
         $push: { followers: req.user.id }
       });
       await User.findByIdAndUpdate(req.user.id, {
         $push: { following: req.params.id }
+      });
+      // Create follow notification
+      await Notification.create({
+        recipient: req.params.id,
+        sender: req.user.id,
+        type: 'follow'
       });
       res.json({ message: 'Followed successfully' });
     }
@@ -104,6 +118,44 @@ router.get('/search/users', auth, async (req, res) => {
     }).select('name username avatar bio').limit(10);
 
     res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Add link
+router.post('/links/add', auth, async (req, res) => {
+  try {
+    const { name, url } = req.body;
+
+    if (!name || !url) {
+      return res.status(400).json({ message: 'Name and URL are required' });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $push: { links: { name, url } } },
+      { new: true }
+    ).select('-password');
+
+    res.json(user);
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Delete link
+router.delete('/links/:linkId', auth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $pull: { links: { _id: req.params.linkId } } },
+      { new: true }
+    ).select('-password');
+
+    res.json(user);
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

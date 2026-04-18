@@ -3,6 +3,7 @@ const router = express.Router();
 const Comment = require('../models/Comment');
 const Post = require('../models/Post');
 const auth = require('../middleware/auth');
+const Notification = require('../models/Notification');
 
 // Add comment
 router.post('/:postId', auth, async (req, res) => {
@@ -25,6 +26,33 @@ router.post('/:postId', auth, async (req, res) => {
     });
 
     await comment.save();
+    // Notify post author
+    if (post.author.toString() !== req.user.id) {
+      await Notification.create({
+        recipient: post.author,
+        sender: req.user.id,
+        type: 'comment',
+        post: post._id
+      });
+    }
+
+    // Detect mentions in comment
+    const mentionRegex = /@(\w+)/g;
+    const mentions = [...content.matchAll(mentionRegex)].map(m => m[1]);
+    if (mentions.length) {
+      const User = require('../models/User');
+      for (const username of mentions) {
+        const mentioned = await User.findOne({ username: username.toLowerCase() });
+        if (mentioned && mentioned._id.toString() !== req.user.id && mentioned._id.toString() !== post.author.toString()) {
+          await Notification.create({
+            recipient: mentioned._id,
+            sender: req.user.id,
+            type: 'mention',
+            post: post._id
+          });
+        }
+      }
+    }
     await comment.populate('author', 'name username avatar');
 
     res.status(201).json(comment);

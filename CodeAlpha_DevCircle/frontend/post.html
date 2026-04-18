@@ -12,8 +12,12 @@
 <nav class="navbar">
   <div class="navbar-brand">Dev<span>Circle</span></div>
   <ul class="navbar-nav">
-    <li><a href="/feed.html">← Back to Feed</a></li>
+    <li><a href="feed.html">← Back to Feed</a></li>
     <li><a href="#" id="profileLink">Profile</a></li>
+    <li class="bell-wrap">
+      <a href="#" id="bellBtn" style="font-size: 1.1rem;">🔔</a>
+      <span class="notif-badge" id="notifBadge"></span>
+    </li>
     <li><a href="#" id="logoutBtn">Logout</a></li>
     <li>
       <img src="" alt="avatar" class="nav-avatar" id="navAvatar"
@@ -59,8 +63,16 @@
   </div>
 
 </div>
-
+<!-- Notification Popup -->
+<div class="notif-popup" id="notifPopup">
+  <div class="notif-popup-header">
+    <span>Notifications</span>
+    <button id="markReadBtn">Mark all read</button>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+</div>
 <script src="js/api.js"></script>
 <script src="js/post.js"></script>
+<script src="js/notifications.js"></script>
 </body>
 </html>
