@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlowBoard — Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="app-page">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon">⬡</span>
+      <span>FlowBoard</span>
+    </div>
+    <div class="nav-right">
+      <div class="notif-wrapper">
+        <button class="btn-icon" id="notif-btn">
+          🔔 <span class="notif-badge hidden" id="notif-count">0</span>
+        </button>
+        <div class="notif-dropdown hidden" id="notif-dropdown">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <button class="btn-text" id="mark-read-btn">Mark all read</button>
+          </div>
+          <div id="notif-list"><p class="empty-state">No notifications</p></div>
+        </div>
+      </div>
+      <span class="nav-username" id="nav-username"></span>
+      <button class="btn btn-ghost" id="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="dashboard-main">
+    <div class="dashboard-header">
+      <h2>Your Projects</h2>
+      <button class="btn btn-primary" id="new-project-btn">+ New Project</button>
+    </div>
+
+    <div class="project-grid" id="project-grid">
+      <div class="loading">Loading projects...</div>
+    </div>
+  </main>
+
+  <!-- New Project Modal -->
+  <div class="modal-overlay hidden" id="project-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Create New Project</h3>
+        <button class="btn-icon modal-close" id="close-project-modal">✕</button>
+      </div>
+      <div class="form-group">
+        <label>Project Name</label>
+        <input type="text" id="project-name" placeholder="e.g. College App" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="project-desc" placeholder="What is this project about?" rows="3"></textarea>
+      </div>
+      <div id="project-error" class="alert alert-error hidden"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancel-project-btn">Cancel</button>
+        <button class="btn btn-primary" id="create-project-btn">Create Project</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

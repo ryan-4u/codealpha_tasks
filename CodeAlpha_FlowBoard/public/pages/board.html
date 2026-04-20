@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlowBoard — Board</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="app-page">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="/dashboard" class="back-link">← </a>
+      <span class="brand-icon">⬡</span>
+      <span id="project-title">Project</span>
+    </div>
+    <div class="nav-right">
+      <button class="btn btn-ghost btn-sm" id="invite-btn">+ Invite</button>
+      <span class="nav-username" id="nav-username"></span>
+      <button class="btn btn-ghost" id="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Board -->
+  <div class="board-wrapper">
+    <div class="board" id="board">
+      <!-- Columns rendered by JS -->
+    </div>
+  </div>
+
+  <!-- Task Modal -->
+  <div class="modal-overlay hidden" id="task-modal">
+    <div class="modal modal-large">
+      <div class="modal-header">
+        <input type="text" class="modal-title-input" id="modal-task-title" placeholder="Task title" />
+        <button class="btn-icon modal-close" id="close-task-modal">✕</button>
+      </div>
+      <div class="modal-body-grid">
+        <div class="modal-main">
+          <label>Description</label>
+          <textarea id="modal-task-desc" placeholder="Add a description..." rows="4"></textarea>
+
+          <div class="comments-section">
+            <h4>Comments</h4>
+            <div id="comments-list"></div>
+            <div class="comment-input-row">
+              <input type="text" id="comment-input" placeholder="Write a comment..." />
+              <button class="btn btn-primary btn-sm" id="send-comment-btn">Send</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-sidebar">
+          <div class="form-group">
+            <label>Priority</label>
+            <select id="modal-priority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" id="modal-due-date" />
+          </div>
+          <div class="form-group">
+            <label>Assigned To</label>
+            <select id="modal-assignee">
+              <option value="">Unassigned</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Column</label>
+            <select id="modal-column">
+              <option value="todo">Todo</option>
+              <option value="inprogress">In Progress</option>
+              <option value="inreview">In Review</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-full" id="save-task-btn">Save Changes</button>
+          <button class="btn btn-danger btn-full" id="delete-task-btn">Delete Task</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invite Modal -->
+  <div class="modal-overlay hidden" id="invite-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Invite Member</h3>
+        <button class="btn-icon modal-close" id="close-invite-modal">✕</button>
+      </div>
+      <div class="form-group" style="position:relative">
+        <label>Search Username</label>
+        <input type="text" id="invite-username" placeholder="Type to search..." autocomplete="off" />
+        <div id="invite-suggestions" class="suggestions-dropdown hidden"></div>
+      </div>
+      <div id="invite-selected" class="invite-selected-user hidden">
+        <span id="invite-selected-name"></span>
+        <button class="btn-icon" id="invite-clear-selected">✕</button>
+      </div>
+      <div id="invite-msg" class="alert hidden"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="cancel-invite-btn">Cancel</button>
+        <button class="btn btn-primary" id="send-invite-btn">Send Invite</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/board.js"></script>
+</body>
+</html>
