@@ -66,27 +66,31 @@ DevCircle is a mini social media platform designed for developers. Built as Task
 - Cloudinary + Multer for image uploads
 - bcryptjs for password hashing
 
----
-
 ## Project Structure
+
+```bash
 CodeAlpha_DevCircle/
+│
 ├── backend/
-│   ├── config/          # Cloudinary setup
-│   ├── middleware/       # JWT auth middleware
-│   ├── models/           # User, Post, Comment, Notification
-│   ├── routes/           # auth, users, posts, comments, notifications
-│   ├── seed.js           # Seed data with 10 dev community profiles
-│   └── server.js
+│   ├── config/              # Cloudinary configuration
+│   ├── middleware/          # JWT authentication middleware
+│   ├── models/              # Mongoose models (User, Post, Comment, Notification)
+│   ├── routes/              # API routes (auth, users, posts, comments, notifications)
+│   ├── seed.js              # Seed script (dummy users, posts, interactions)
+│   └── server.js            # Entry point of backend
+│
 ├── frontend/
-│   ├── css/style.css
-│   ├── js/               # api, auth, feed, profile, post, notifications
-│   ├── index.html        # Login / Register
-│   ├── feed.html
-│   ├── profile.html
-│   └── post.html
-├── package.json          # Root — starts both with concurrently
+│   ├── css/
+│   │   └── style.css        # Main stylesheet
+│   ├── js/                  # Frontend logic (API, auth, feed, profile, etc.)
+│   ├── index.html           # Login / Register page
+│   ├── feed.html            # Main feed page
+│   ├── profile.html         # User profile page
+│   └── post.html            # Single post view
+│
+├── package.json             # Root config (runs frontend + backend)
 └── .gitignore
----
+```
 
 ## Getting Started
 
